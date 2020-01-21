@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     post '/posts' => 'posts#create'
     patch '/posts/:id' => 'posts#update'
     delete '/posts/:id' => 'posts#destroy'
+
+    # Comments 
+    get '/comments' => 'comments#index'
+    get '/comments/:id' => 'comments#show'
   end 
 end
