@@ -36,12 +36,12 @@ class Api::PostsController < ApplicationController
     else 
       render json: { errors: @post.errors.full_messages }
     end 
+  end 
 
-    def destroy 
-      @post = Post.find(params[:id])
-      @post.delete 
-      render json: { message: "Deleted successfully" }
-    end 
+  def destroy 
+    @post = Post.find(params[:id])
+    @post.delete 
+    render json: { message: "Deleted successfully" }
   end 
 
 end
