@@ -17,6 +17,7 @@ class Api::UsersController < ApplicationController
     @user.first_name = params[:first_name] || @user.first_name
     @user.last_name = params[:last_name] || @user.last_name 
     @user.email = params[:email] || @user.email
+    @user.image = params[:image] || @user.image
     @user.password = params[:password] || @user.password
     @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
 
@@ -32,6 +33,7 @@ class Api::UsersController < ApplicationController
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
+      image: params[:image],
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
