@@ -1,13 +1,21 @@
 class Api::PostsController < ApplicationController
-
+  
   def index
-    @posts = Post.all 
-    render 'index.json.jbuilder'
+    if current_user 
+      @posts = Post.where(user_id: current_user.id)
+      render 'index.json.jbuilder'
+    else 
+      render json: { message: "Sign in to see your posts" }
+    end
   end 
 
   def show 
-    @post = Post.find(params[:id])
-    render 'show.json.jbuilder'
+    if current_user 
+      @post = Post.find(params[:id])
+      render 'show.json.jbuilder'
+    else 
+      render json: { message: "Sign in to view post" }
+    end
   end 
 
   def create 
@@ -38,10 +46,18 @@ class Api::PostsController < ApplicationController
     end 
   end 
 
-  def destroy 
-    @post = Post.find(params[:id])
-    @post.delete 
-    render json: { message: "Deleted successfully" }
+  def destroy
+    if current_user
+      @post = Post.find(params[:id])
+      if @post.user_id === current_user.id 
+        @post.delete 
+        render json: { message: "Deleted successfully" }
+      else 
+        render json: { message: "This is not your post to delete" }
+      end 
+    else 
+      render json: { message: "Sign in to delete" }
+    end
   end 
 
 end
